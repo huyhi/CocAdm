@@ -12,7 +12,7 @@ class ClanSpider(BaseSpider):
 
     @classmethod
     def clan_detail(cls, **kwargs):
-        cls.api_url = '%s/%s/%s' % (cls.api_url, 'clans', quote(cls.clanTag, 'utf-8'))
+        cls.api_url = '%s/%s/%s' % (cls.api_url, 'clans', quote(cls.clan_tag, 'utf-8'))
         res = cls.req.get(cls.api_url)
         return res.json()
 

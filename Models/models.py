@@ -3,13 +3,14 @@
 # File Name : Members.py
 from sqlalchemy import Column, String, Integer, JSON, DateTime
 
-from DB.sqlalchemySession import Base
+from DB.sqlalchemy_session import Base
 
 
 class Member(Base):
     __tablename__ = 'members'
 
-    tag = Column('id', String, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    tag = Column(String)
     name = Column(String)
     role = Column(String)
     expLevel = Column(Integer)

@@ -4,19 +4,20 @@
 import datetime
 
 from apscheduler.executors.pool import ThreadPoolExecutor
+from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-from schedul.fetch_members_data import fetch_player_flowing_data
+from schedule.fetch_data import fetch_player_flowing_data
 
 
-executors = {
-    'default': ThreadPoolExecutor(3),
-}
+def foo():
+    print(datetime.datetime.now())
+
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(fetch_player_flowing_data, 'interval', minutes=1,
-                      start_date='2000-01-01 00:00:00', executors=executors)
+    scheduler.add_job(fetch_player_flowing_data, 'interval', seconds=10,
+                      start_date='2000-01-01 00:00:00', end_date='2030-01-01 00:00:00')
 
     try:
         scheduler.start()

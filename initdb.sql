@@ -1,5 +1,7 @@
-create table if not exists `members` (
+create table if not exists `season_statistic` (
   `id` varchar (15) not null default '' primary key,
+  `seasonId` integer not null default 0,
+  `tag` varchar (64) not null default '',
   `name` varchar (64) not null default '',
   `role` varchar (16) not null default '',
   `expLevel` integer unsigned not null default 0,
@@ -8,8 +10,20 @@ create table if not exists `members` (
   `versusTrophies` integer unsigned not null default 0,
   `clanRank` integer unsigned not null default 0,
   `previousClanRank` integer unsigned not null default 0,
+  `attackWins` integer unsigned not null default 0,
   `donations` integer unsigned not null default 0,
-  `donationsReceived` integer unsigned not null default 0
+  `donationsReceived` integer unsigned not null default 0,
+  key `idx_seasonId` (`seasonId`)
+) engine=innodb default charset=utf8;
+
+
+create table if not exists `season` (
+  `id` varchar (15) not null default '' primary key,
+  `name` varchar (255) not null default '' unique key,
+  `status` integer not null default 0,
+  `createAt` datetime not null default current_timestamp,
+  `updateAt` datetime not null default current_timestamp on update current_timestamp,
+  unique key `unq_name` (`name`)
 ) engine=innodb default charset=utf8;
 
 
