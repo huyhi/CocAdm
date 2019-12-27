@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middlewares.BasePreRequest.BasePreRequestsMiddleware'
+    # 'middlewares.BasePreRequest.BasePreRequestsMiddleware'
 ]
 
 ROOT_URLCONF = 'urls'
@@ -123,3 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# log config
+BASE_LOG_DIR = os.path.join(PROJECT_ROOT_DIR, 'logs')
+LOGGING = {
+
+}
+

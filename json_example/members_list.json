@@ -1,0 +1,44 @@
+{
+    "items": [{
+        "tag": "#89Y0PLUV8",
+        "name": "二宝",
+        "role": "coLeader",
+        "expLevel": 198,
+        "league": {
+            "id": 29000017,
+            "name": "Champion League II",
+            "iconUrls": {
+                "small": "https://api-assets.clashofclans.com/leagues/72/kLWSSyq7vJiRiCantiKCoFuSJOxief6R1ky6AyfB8q0.png",
+                "tiny": "https://api-assets.clashofclans.com/leagues/36/kLWSSyq7vJiRiCantiKCoFuSJOxief6R1ky6AyfB8q0.png",
+                "medium": "https://api-assets.clashofclans.com/leagues/288/kLWSSyq7vJiRiCantiKCoFuSJOxief6R1ky6AyfB8q0.png"
+            }
+        },
+        "trophies": 3657,
+        "versusTrophies": 3901,
+        "clanRank": 2,
+        "previousClanRank": 2,
+        "donations": 11450,
+        "donationsReceived": 10718
+    },
+    {
+        "tag": "#22GU0VCQR",
+        "name": "annhuny",
+        "role": "coLeader",
+        "expLevel": 144,
+        "league": {
+            "id": 29000015,
+            "name": "Master League I",
+            "iconUrls": {
+                "small": "https://api-assets.clashofclans.com/leagues/72/olUfFb1wscIH8hqECAdWbdB6jPm9R8zzEyHIzyBgRXc.png",
+                "tiny": "https://api-assets.clashofclans.com/leagues/36/olUfFb1wscIH8hqECAdWbdB6jPm9R8zzEyHIzyBgRXc.png",
+                "medium": "https://api-assets.clashofclans.com/leagues/288/olUfFb1wscIH8hqECAdWbdB6jPm9R8zzEyHIzyBgRXc.png"
+            }
+        },
+        "trophies": 3110,
+        "versusTrophies": 2602,
+        "clanRank": 3,
+        "previousClanRank": 3,
+        "donations": 11381,
+        "donationsReceived": 2106
+    }]
+}

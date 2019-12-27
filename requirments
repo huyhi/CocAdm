@@ -1,0 +1,7 @@
+Django
+mysql
+mysql-client
+mysql-connector-python
+mysqlclient
+SQLAlchemy
+requests
