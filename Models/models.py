@@ -6,10 +6,11 @@ from sqlalchemy import Column, String, Integer, JSON, DateTime
 from DB.sqlalchemy_session import Base
 
 
-class Member(Base):
-    __tablename__ = 'members'
+class SeasonStatistic(Base):
+    __tablename__ = 'season_statistic'
 
     id = Column(Integer, primary_key=True)
+    seasonId = Column(Integer)
     tag = Column(String)
     name = Column(String)
     role = Column(String)
@@ -19,6 +20,7 @@ class Member(Base):
     versusTrophies = Column(Integer)
     clanRank = Column(Integer)
     previousClanRank = Column(Integer)
+    attackWins = Column(Integer)
     donations = Column(Integer)
     donationsReceived = Column(Integer)
 
@@ -38,8 +40,4 @@ class FlowingData(Base):
     elixir = Column(Integer)
     darkElixir = Column(Integer)
     datetimeTag = Column(DateTime)
-
-
-
-
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Create by Annhuny On 2019-12-27 00:09
-# File Name : scheduler_dashboard.py
+# File Name : schedule_dashboard.py
 import datetime
 
 from apscheduler.executors.pool import ThreadPoolExecutor

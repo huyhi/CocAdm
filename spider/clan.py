@@ -25,8 +25,8 @@ class ClanSpider(BaseSpider):
     @classmethod
     def player_information(cls, **kwargs):
         player_tag = kwargs.get('player_tag', '')
-        cls.api_url = '%s/%s/%s' % (cls.api_url, 'players', quote(player_tag, 'utf-8'))
-        res = cls.req.get(cls.api_url).json()
+        api_url = '%s/%s/%s' % (cls.api_url, 'players', quote(player_tag, 'utf-8'))
+        res = cls.req.get(api_url).json()
         # with open(PROJECT_ROOT_DIR + '/json_example/player_information.json', 'r') as f:
         #     res = json.loads(f.read())
 

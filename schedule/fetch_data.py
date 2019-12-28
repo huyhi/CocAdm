@@ -26,9 +26,11 @@ def fetch_player_flowing_data():
     logger.info('--------------------------------------')
 
     players_tag_list = fetch_players_tag_list()
+    # time format
+    time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:00:00')
     for player_tag in players_tag_list:
         player_data = ClanSpider.player_information(player_tag=player_tag)
-        player_data['datetimeTag'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        player_data['datetimeTag'] = time_now
         logger.info(' fetch player tag: %s ' % player_tag)
         session.add(FlowingData(**player_data))
 

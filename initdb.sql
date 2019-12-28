@@ -1,5 +1,5 @@
 create table if not exists `season_statistic` (
-  `id` varchar (15) not null default '' primary key,
+  `id` integer auto_increment not null primary key,
   `seasonId` integer not null default 0,
   `tag` varchar (64) not null default '',
   `name` varchar (64) not null default '',
@@ -13,12 +13,14 @@ create table if not exists `season_statistic` (
   `attackWins` integer unsigned not null default 0,
   `donations` integer unsigned not null default 0,
   `donationsReceived` integer unsigned not null default 0,
+  `createAt` datetime not null default current_timestamp,
+  `updateAt` datetime not null default current_timestamp on update current_timestamp,
   key `idx_seasonId` (`seasonId`)
 ) engine=innodb default charset=utf8;
 
 
 create table if not exists `season` (
-  `id` varchar (15) not null default '' primary key,
+  `id` integer auto_increment not null primary key,
   `name` varchar (255) not null default '' unique key,
   `status` integer not null default 0,
   `createAt` datetime not null default current_timestamp,
