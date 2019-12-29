@@ -6,6 +6,16 @@ from sqlalchemy import Column, String, Integer, JSON, DateTime
 from DB.sqlalchemy_session import Base
 
 
+class Season(Base):
+    __tablename__ = 'season'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    status = Column(Integer)
+    createAt = Column(DateTime)
+    updateAt = Column(DateTime)
+
+
 class SeasonStatistic(Base):
     __tablename__ = 'season_statistic'
 
@@ -23,6 +33,8 @@ class SeasonStatistic(Base):
     attackWins = Column(Integer)
     donations = Column(Integer)
     donationsReceived = Column(Integer)
+    createAt = Column(DateTime)
+    updateAt = Column(DateTime)
 
 
 class FlowingData(Base):
@@ -40,4 +52,6 @@ class FlowingData(Base):
     elixir = Column(Integer)
     darkElixir = Column(Integer)
     datetimeTag = Column(DateTime)
+    createAt = Column(DateTime)
+    updateAt = Column(DateTime)
 

@@ -7,7 +7,6 @@ from django.views import View
 
 from DB.sqlalchemy_session import session
 from Models.models import FlowingData
-from settings import cfg
 from spider.clan import ClanSpider
 
 
