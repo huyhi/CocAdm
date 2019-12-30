@@ -9,6 +9,10 @@ def get_season_list():
     return session.query(Season).all()
 
 
+def get_season_by_id(season_id):
+    return session.query(Season).filter_by(id=season_id).first()
+
+
 def get_season_statistic_by_season_id(season_id):
     return session.query(SeasonStatistic).filter_by(seasonId=season_id).all()
 
