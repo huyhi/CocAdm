@@ -4,6 +4,7 @@ certifi==2019.11.28
 chardet==3.0.4
 conf==0.4.1
 Django==3.0.1
+djangorestframework==3.11.0
 idna==2.8
 mysql==0.0.2
 mysql-client==0.0.1

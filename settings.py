@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from config import conf
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-CFG_FILE_NAME = 'config.yml'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,7 +25,7 @@ CFG_FILE_NAME = 'config.yml'
 SECRET_KEY = 'rmrs8mtd+$l9a705*m(6brk=@@a6)mn77xn3r1w@qso_4pja9j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if conf.get('debug') == 'true' else False
 
 ALLOWED_HOSTS = ['*']
 
@@ -48,7 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middlewares.SessionClose'
+    'middlewares.SessionClose',
+    'middlewares.ExceptionHandler',
 ]
 
 ROOT_URLCONF = 'urls'
@@ -133,7 +134,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime}  {filename:s} @ {module}  {process:d} {thread:d} \n  {message}',
             'style': '{',
         },
         'simple': {
@@ -153,11 +154,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        # 'mail_admins': {
-        #     'level': 'ERROR',
-        #     'class': 'django.utils.log.AdminEmailHandler',
-        #     'formatter': 'verbose',
-        # },
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
@@ -167,18 +163,14 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['file', 'console'] if DEBUG else 'file',
+            'level': 'WARNING',
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'WARNING',
-            'propagate': False,
-        },
         'django.schedule': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'] if DEBUG else 'file',
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
     }
 }
