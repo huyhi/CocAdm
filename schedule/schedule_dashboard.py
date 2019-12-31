@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # Create by Annhuny On 2019-12-27 00:09
 # File Name : schedule_dashboard.py
-import datetime
+import logging
+import traceback
+from logging import config
 
-from apscheduler.executors.pool import ThreadPoolExecutor
-from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 from schedule.fetch_data import fetch_player_flowing_data
+from settings import LOGGING
 
-
-def foo():
-    print(datetime.datetime.now())
+config.dictConfig(LOGGING)
+logger = logging.getLogger('django.schedule')
 
 
 if __name__ == '__main__':
@@ -22,5 +22,5 @@ if __name__ == '__main__':
     try:
         scheduler.start()
     except (KeyboardInterrupt, SystemExit) as e:
-        print(e)
+        logger.error(traceback.format_exc())
 

@@ -11,7 +11,7 @@ from django.utils.deprecation import MiddlewareMixin
 from DB.sqlalchemy_session import session
 from errors import CustomError, DEFAULT_ERR_CODE
 
-logger = logging.getLogger('django')
+logger = logging.getLogger('django.request')
 
 
 class SessionClose(MiddlewareMixin):

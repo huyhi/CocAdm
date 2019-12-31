@@ -3,16 +3,11 @@
 # File Name : fetch_data.py
 
 import datetime
-import logging
-from logging import config
+import traceback
 
 from DB.sqlalchemy_session import session
 from Models.models import FlowingData
-from settings import LOGGING
 from spider.clan import ClanSpider
-
-config.dictConfig(LOGGING)
-logger = logging.getLogger('django.schedule')
 
 
 def fetch_players_tag_list():
@@ -21,23 +16,23 @@ def fetch_players_tag_list():
 
 
 def fetch_player_flowing_data():
-    logger.info('--------------------------------------')
-    logger.info('-  fetch players flowing data start  -')
-    logger.info('--------------------------------------')
+    from schedule.schedule_dashboard import logger
 
-    players_tag_list = fetch_players_tag_list()
-    # time format
     time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:00:00')
-    for player_tag in players_tag_list:
-        player_data = ClanSpider.player_information(player_tag=player_tag)
-        player_data['datetimeTag'] = time_now
-        logger.info(' fetch player tag: %s ' % player_tag)
-        session.add(FlowingData(**player_data))
+    logger.info('***** start fetching flowing data. datetimeTag: {} *****'.format(time_now))
 
-    session.commit()
-    logger.info('--------------')
-    logger.info('-  fetch ok  -')
-    logger.info('--------------')
+    try:
+        players_tag_list = fetch_players_tag_list()
+        for player_tag in players_tag_list:
+            player_data = ClanSpider.player_information(player_tag=player_tag)
+            player_data['datetimeTag'] = time_now
+            logger.info('***** fetching playerTag: {} datetimeTag: {} *****'.format(player_tag, time_now))
+            session.add(FlowingData(**player_data))
+        session.commit()
+    except Exception as e:
+        logger.error(traceback.format_exc())
+
+    logger.info('***** fetching flowing data OK. datetimeTag: {} *****'.format(time_now))
     return True
 
 

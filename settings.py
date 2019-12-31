@@ -25,7 +25,7 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'rmrs8mtd+$l9a705*m(6brk=@@a6)mn77xn3r1w@qso_4pja9j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if conf.get('debug') == 'true' else False
+DEBUG = True if conf.get('debug') else False
 
 ALLOWED_HOSTS = ['*']
 
@@ -154,23 +154,31 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
+        'django_request': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_LOG_DIR, 'debug.log'),
+            'filename': os.path.join(BASE_LOG_DIR, 'django_request.log'),
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 25,
+            'formatter': 'verbose',
+        },
+        'django_schedule': {
+            'level': 'INFO',
+            'filename': os.path.join(BASE_LOG_DIR, 'django_schedule.log'),
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 25,
             'formatter': 'verbose',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file', 'console'] if DEBUG else 'file',
-            'level': 'WARNING',
+        'django.request': {
+            'handlers': ['django_request', 'console'] if DEBUG else ['django_request'],
+            'level': 'INFO',
             'propagate': True,
         },
         'django.schedule': {
-            'handlers': ['file', 'console'] if DEBUG else 'file',
+            'handlers': ['django_schedule', 'console'] if DEBUG else ['django_schedule'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
     }
 }
