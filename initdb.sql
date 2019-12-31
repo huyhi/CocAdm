@@ -17,7 +17,7 @@ CREATE TABLE `season_statistic` (
   `updateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_seasonId` (`seasonId`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `season` (
@@ -29,12 +29,13 @@ CREATE TABLE `season` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `unq_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `flowing_data` (
+CREATE TABLE `daily_statistic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag` varchar(15) NOT NULL DEFAULT '',
+  `name` varchar(64) NOT NULL DEFAULT '',
   `expLevel` int(10) unsigned NOT NULL DEFAULT '0',
   `trophies` int(10) unsigned NOT NULL DEFAULT '0',
   `versusTrophies` int(10) unsigned NOT NULL DEFAULT '0',
@@ -44,10 +45,10 @@ CREATE TABLE `flowing_data` (
   `gold` int(10) unsigned NOT NULL DEFAULT '0',
   `elixir` int(10) unsigned NOT NULL DEFAULT '0',
   `darkElixir` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateTimeTag` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTimeTag` datetime NOT NULL,
   `createAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_dateTimeTag` (`dateTimeTag`),
   KEY `idx_tag` (`tag`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

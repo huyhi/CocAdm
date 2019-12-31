@@ -37,11 +37,12 @@ class SeasonStatistic(Base):
     updateAt = Column(DateTime, server_default=func.now())
 
 
-class FlowingData(Base):
-    __tablename__ = 'flowing_data'
+class DailyStatistic(Base):
+    __tablename__ = 'daily_statistic'
 
     id = Column(Integer, primary_key=True)
     tag = Column(String)
+    name = Column(String)
     expLevel = Column(Integer)
     trophies = Column(Integer)
     versusTrophies = Column(Integer)

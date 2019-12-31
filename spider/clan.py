@@ -38,6 +38,7 @@ class ClanSpider(BaseSpider):
 
         return {
             'tag': res.get('tag'),
+            'name': res.get('name'),
             'expLevel': res.get('expLevel'),
             'trophies': res.get('trophies'),
             'versusTrophies': res.get('versusTrophies'),

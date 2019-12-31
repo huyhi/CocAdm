@@ -7,7 +7,7 @@ from django.views import View
 
 from DB.sqlalchemy_session import session
 from Models.enums import ErrEnums
-from Models.models import FlowingData
+from Models.models import DailyStatistic
 from errors import CustomError
 from spider.clan import ClanSpider
 

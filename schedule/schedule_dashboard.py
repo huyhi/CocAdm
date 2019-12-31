@@ -7,7 +7,7 @@ from logging import config
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-from schedule.fetch_data import fetch_player_flowing_data
+from schedule.fetch_data import fetch_player_daily_data
 from settings import LOGGING
 
 config.dictConfig(LOGGING)
@@ -16,7 +16,7 @@ logger = logging.getLogger('django.schedule')
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(fetch_player_flowing_data, 'interval', hours=2,
+    scheduler.add_job(fetch_player_daily_data, 'interval', hours=2,
                       start_date='2000-01-01 00:00:00', end_date='2030-01-01 00:00:00')
 
     try:

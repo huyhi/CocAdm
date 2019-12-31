@@ -6,7 +6,7 @@ import datetime
 import traceback
 
 from DB.sqlalchemy_session import session
-from Models.models import FlowingData
+from Models.models import DailyStatistic
 from spider.clan import ClanSpider
 
 
@@ -15,7 +15,7 @@ def fetch_players_tag_list():
     return [member.get('tag') for member in members]
 
 
-def fetch_player_flowing_data():
+def fetch_player_daily_data():
     from schedule.schedule_dashboard import logger
 
     time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:00:00')
@@ -27,7 +27,7 @@ def fetch_player_flowing_data():
             player_data = ClanSpider.player_information(player_tag=player_tag)
             player_data['datetimeTag'] = time_now
             logger.info('***** fetching playerTag: {} datetimeTag: {} *****'.format(player_tag, time_now))
-            session.add(FlowingData(**player_data))
+            session.add(DailyStatistic(**player_data))
         session.commit()
     except Exception as e:
         logger.error(traceback.format_exc())
@@ -37,7 +37,7 @@ def fetch_player_flowing_data():
 
 
 if __name__ == '__main__':
-    fetch_player_flowing_data()
+    fetch_player_daily_data()
 
 
 
