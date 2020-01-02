@@ -6,8 +6,9 @@ from django.http import JsonResponse
 from django.views import View
 
 from DB.sqlalchemy_session import session
-from Models.models import FlowingData
-from settings import cfg
+from Models.enums import ErrEnums
+from Models.models import DailyStatistic
+from errors import CustomError
 from spider.clan import ClanSpider
 
 
@@ -16,9 +17,8 @@ class TestView(View):
         # var = ClanSpider.player_information(playerTag='#22GU0VCQR')
         # session.add(FlowingData(**var))
         # session.commit()
-        var = 66
         return JsonResponse({
-            'var': var
+            'var': 1 / 0
         })
 
 

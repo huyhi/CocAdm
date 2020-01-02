@@ -1,0 +1,83 @@
+{%  extends 'base.html' %}
+
+{% block style %}
+<style>
+.glyphicon:hover{
+    cursor: pointer
+}
+</style>
+{% endblock %}
+
+
+{%  block content %}
+<div class="container">
+    <div class="alert alert-warning center-block" role="alert">
+        提示：统计数据仅供参考，可能存在由于人员进出变动、时间上的延迟、未知的Bug等因素造成的数据不准确，正在努力完善中。
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">赛季列表</div>
+                <div class="panel-body season-list">
+                    {% for season in season_list %}
+                        <button type="button" class="btn btn-default btn-block" seasonId={{ season.id }}>
+                            {{ season.name }}
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">数据统计 {{ season.name }}</div>
+
+                <div class="panel-body">
+                    <table class="table table-bordered data-content-table">
+                        <tr>
+                          <td class="success">标签</td>
+                          <td class="success">昵称</td>
+                          <td class="success">等级 <span class="glyphicon glyphicon-triangle-bottom" orderBy="expLevel"></span> </td>
+                          <td class="success">捐兵 <span class="glyphicon glyphicon-triangle-bottom" orderBy="donations"></span> </td>
+                          <td class="success">收兵 <span class="glyphicon glyphicon-triangle-bottom" orderBy="donationsReceived"></span> </td>
+                          <td class="success">进攻次数 <span class="glyphicon glyphicon-triangle-bottom" orderBy="attackWins"></span> </td>
+                          <td class="success">捐收比 <span class="glyphicon glyphicon-triangle-bottom" orderBy="RD_ratio"></span> </td>
+                          <td class="success">收捐比 <span class="glyphicon glyphicon-triangle-bottom" orderBy="DR_ratio"></span> </td>
+                        </tr>
+                        {% for item in data %}
+                            <tr>
+                                <td>{{ item.tag }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.expLevel }}</td>
+                                <td>{{ item.donations }}</td>
+                                <td>{{ item.donationsReceived }}</td>
+                                <td>{{ item.attackWins }}</td>
+                                <td>{{ item.DR_ratio }}</td>
+                                <td>{{ item.RD_ratio }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endblock %}
+
+
+{% block script %}
+<script>
+let sort_lists = $('.data-content-table .glyphicon')
+sort_lists.bind('click', (e) => {
+    window.location.href = `${full_url}?orderBy=${e.target.getAttribute('orderBy')}`;
+})
+
+let season_list_btns = $('.season-list button')
+season_list_btns.bind('click', (e) => {
+    window.location.href = `${root_url}/season/${e.target.getAttribute('seasonId')}`
+})
+
+{#window.location.href = 'http://www.mahaixiang.cn/'#}
+</script>
+{% endblock %}

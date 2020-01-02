@@ -1,3 +1,4 @@
+# coding: utf-8
 #!/usr/bin/env python
 # Create by Annhuny On 2019-12-27 16:17
 # File Name : config.py
@@ -7,7 +8,8 @@ import os
 
 import yaml
 
-from settings import PROJECT_ROOT_DIR, CFG_FILE_NAME
+PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+CFG_FILE_NAME = 'config.yml'
 
 
 class ConfSingleton(object):

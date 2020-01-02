@@ -9,9 +9,13 @@ from sqlalchemy.orm import sessionmaker
 from config import conf
 
 
-Base = declarative_base()
+def to_dict(self):
+    return {c.name: getattr(self, c.name, None) for c in self.__table__.columns}
 
-# 初始化数据库连接
+
+Base = declarative_base()
+Base.to_dict = to_dict
+
 db_conf = conf.get('DB').get('mysql')
 engine = create_engine('mysql+mysqlconnector://{user}:{password}@{ip}:{port}/{database}'.format(**{
     'user': db_conf.get('user'),

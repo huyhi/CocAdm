@@ -13,11 +13,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from config import conf
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-CFG_FILE_NAME = 'config.yml'
-
-cfg = {}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -26,10 +25,9 @@ cfg = {}
 SECRET_KEY = 'rmrs8mtd+$l9a705*m(6brk=@@a6)mn77xn3r1w@qso_4pja9j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if conf.get('debug') else False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -50,7 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'middlewares.BasePreRequest.BasePreRequestsMiddleware'
+    'middlewares.SessionClose',
+    'middlewares.ExceptionHandler',
 ]
 
 ROOT_URLCONF = 'urls'
@@ -135,7 +134,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime}  {filename:s} @ {module}  {process:d} {thread:d} \n  {message}',
             'style': '{',
         },
         'simple': {
@@ -155,30 +154,29 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        # 'mail_admins': {
-        #     'level': 'ERROR',
-        #     'class': 'django.utils.log.AdminEmailHandler',
-        #     'formatter': 'verbose',
-        # },
-        'file': {
+        'django_request': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_LOG_DIR, 'debug.log'),
+            'filename': os.path.join(BASE_LOG_DIR, 'django_request.log'),
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 25,
+            'formatter': 'verbose',
+        },
+        'django_schedule': {
+            'level': 'INFO',
+            'filename': os.path.join(BASE_LOG_DIR, 'django_schedule.log'),
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024 * 1024 * 25,
             'formatter': 'verbose',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
+        'django.request': {
+            'handlers': ['django_request', 'console'] if DEBUG else ['django_request'],
+            'level': 'INFO',
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'WARNING',
-            'propagate': False,
-        },
         'django.schedule': {
-            'handlers': ['file'],
+            'handlers': ['django_schedule', 'console'] if DEBUG else ['django_schedule'],
             'level': 'INFO',
             'propagate': False,
         },
