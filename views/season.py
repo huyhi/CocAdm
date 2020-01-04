@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Create by Annhuny On 2019-12-28 01:28
 # File Name : season.py
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -9,10 +10,9 @@ from DB.service import get_season_statistic_by_season_id, get_season_list, get_s
 
 class Season(View):
     def get(self, request):
-        # return JsonResponse({
-        #     'data': [i.to_dict() for i in get_season_list()]
-        # })
-        return render(request, 'season/season_statistic.html', {})
+        return JsonResponse({
+            'data': [i.to_dict() for i in get_season_list()]
+        })
 
 
 class SeasonStatistics(View):
@@ -32,13 +32,7 @@ class SeasonStatistics(View):
             item['DR_ratio'] = -1 if item['donationsReceived'] == 0 else round(item['donations'] / item['donationsReceived'], 3)
 
         season_statistic_raw.sort(key=lambda i: i.get(order_by), reverse=is_reverse)
-        # return JsonResponse({
-        #     'data': season_statistic_raw
-        # })
-
-        return render(request, 'season/season_statistic.html', {
-            'data': season_statistic_raw,
-            'season_list': [i.to_dict() for i in get_season_list()],
-            'season': get_season_by_id(season_id)
+        return JsonResponse({
+            'data': season_statistic_raw
         })
 

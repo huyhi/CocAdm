@@ -4,5 +4,21 @@
 import datetime
 
 
-one_day = datetime.timedelta(days=1)
-two_hours = datetime.timedelta(hours=2)
+def is_even(num):
+    if not isinstance(num, (float, int)):
+        return False
+    else:
+        return True if int(num % 2) == 0 else False
+
+
+def days(val):
+    return datetime.timedelta(days=val)
+
+
+def hours(val):
+    return datetime.timedelta(hours=val)
+
+
+one_day = days(1)
+two_hours = hours(2)
+
