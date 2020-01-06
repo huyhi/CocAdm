@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from views.daily import DailyStatistic
 from views.realtime import Realtime, PlayerRealtimeInf
@@ -22,11 +22,13 @@ from views.season import SeasonStatistics, Season
 from views.testfile import TestView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('test/', TestView.as_view()),
-    path(r'season/', Season.as_view()),
-    path(r'season/<int:season_id>', SeasonStatistics.as_view()),
-    path(r'daily/<str:player_tag>', DailyStatistic.as_view()),
-    path(r'realtime/', Realtime.as_view()),
-    path(r'realtime/<str:player_tag>', PlayerRealtimeInf.as_view()),
+    path('api/', include([
+        path('admin/', admin.site.urls),
+        path('test/', TestView.as_view()),
+        path(r'season/', Season.as_view()),
+        path(r'season/<int:season_id>', SeasonStatistics.as_view()),
+        path(r'daily/<str:player_tag>', DailyStatistic.as_view()),
+        path(r'realtime/', Realtime.as_view()),
+        path(r'realtime/<str:player_tag>', PlayerRealtimeInf.as_view()),
+    ]))
 ]
