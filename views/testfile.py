@@ -3,22 +3,10 @@
 # File Name : testfile.py
 
 from django.http import JsonResponse
-from django.views import View
 
-from DB.sqlalchemy_session import session
-from Models.enums import ErrEnums
-from Models.models import DailyStatistic
-from errors import CustomError
-from spider.clan import ClanSpider
+from views.base import BaseView
 
 
-class TestView(View):
+class TestView(BaseView):
     def get(self, request):
-        # var = ClanSpider.player_information(playerTag='#22GU0VCQR')
-        # session.add(FlowingData(**var))
-        # session.commit()
-        return JsonResponse({
-            'var': 1 / 0
-        })
-
-
+        return self.success(1 / 0)

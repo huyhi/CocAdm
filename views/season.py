@@ -2,20 +2,17 @@
 # Create by Annhuny On 2019-12-28 01:28
 # File Name : season.py
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.views import View
 
-from DB.service import get_season_statistic_by_season_id, get_season_list, get_season_by_id
+from DB.service import get_season_statistic_by_season_id, get_season_list
+from views.base import BaseView
 
 
-class Season(View):
+class Season(BaseView):
     def get(self, request):
-        return JsonResponse({
-            'data': [i.to_dict() for i in get_season_list()]
-        })
+        return self.success([i.to_dict() for i in get_season_list()])
 
 
-class SeasonStatistics(View):
+class SeasonStatistics(BaseView):
     def validate(self):
         order_by_param = {
             'expLevel', 'role', 'trophies', 'attackWins', 'donations', 'donationsReceived',
@@ -32,7 +29,4 @@ class SeasonStatistics(View):
             item['DR_ratio'] = -1 if item['donationsReceived'] == 0 else round(item['donations'] / item['donationsReceived'], 3)
 
         season_statistic_raw.sort(key=lambda i: i.get(order_by), reverse=is_reverse)
-        return JsonResponse({
-            'data': season_statistic_raw
-        })
-
+        return self.success(season_statistic_raw)

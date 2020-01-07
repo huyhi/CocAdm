@@ -4,15 +4,15 @@
 from datetime import datetime
 
 from django.http import JsonResponse
-from django.views import View
 
 from DB.service import get_daily_statistic_by_player_tag_and_datetime_tag_list
 from Models.enums import ErrEnums, IntervalType
 from errors import CustomError
 from utils.tools import is_even, hours, days
+from views.base import BaseView
 
 
-class DailyStatistic(View):
+class DailyStatistic(BaseView):
     def validate(self, req):
         start_time = datetime.strptime(req.GET.get('start_time'), '%Y-%m-%d %H:%M:%S')
         end_time = datetime.strptime(req.GET.get('end_time'), '%Y-%m-%d %H:%M:%S')
@@ -55,6 +55,4 @@ class DailyStatistic(View):
 
         daily_statistic = get_daily_statistic_by_player_tag_and_datetime_tag_list('#' + player_tag, datetime_tag_list)
 
-        return JsonResponse({
-            'data': [i.to_dict() for i in daily_statistic]
-        })
+        return self.success([i.to_dict() for i in daily_statistic])
