@@ -40,6 +40,7 @@ class ClanSpider(BaseSpider):
             'tag': res.get('tag'),
             'name': res.get('name'),
             'expLevel': res.get('expLevel'),
+            'townHallLevel': res.get('townHallLevel'),
             'trophies': res.get('trophies'),
             'versusTrophies': res.get('versusTrophies'),
             'attackWins': res.get('attackWins'),

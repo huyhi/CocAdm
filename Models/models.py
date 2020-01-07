@@ -44,6 +44,7 @@ class DailyStatistic(Base):
     tag = Column(String)
     name = Column(String)
     expLevel = Column(Integer)
+    townHallLevel = Column(Integer)
     trophies = Column(Integer)
     versusTrophies = Column(Integer)
     attackWins = Column(Integer)

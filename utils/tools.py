@@ -19,6 +19,5 @@ def hours(val):
     return datetime.timedelta(hours=val)
 
 
-one_day = days(1)
-two_hours = hours(2)
-
+def to_percentage(f_val):
+    return round(f_val * 100, 1)

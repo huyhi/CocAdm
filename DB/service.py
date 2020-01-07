@@ -25,3 +25,8 @@ def get_daily_statistic_by_player_tag_and_datetime_tag_list(player_tag, datetime
         .filter(DailyStatistic.datetimeTag.in_(datetime_tag_list))\
         .all()
 
+
+def get_daily_statistic_by_datetime_tag(datetime_tag):
+    return session.query(DailyStatistic)\
+        .filter_by(datetimeTag=datetime_tag)\
+        .all()
