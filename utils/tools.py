@@ -21,3 +21,10 @@ def hours(val):
 
 def to_percentage(f_val):
     return round(f_val * 100, 1)
+
+
+def floor_2hours():
+    now = datetime.datetime.now()
+    if not is_even(now.hour):
+        now = now - hours(1)
+    return now.strftime('%Y-%m-%d %H:00:00')
