@@ -25,17 +25,17 @@ class Realtime(BaseView):
         if cache:
             realtime = json.loads(cache)
         else:
-            # realtime = ClanSpider.clan_detail()
-            realtime = json.loads(open(os.path.join(PROJECT_ROOT_DIR, 'json_example', 'clan_detail.json')).read())
+            realtime = ClanSpider.clan_detail()
+            # realtime = json.loads(open(os.path.join(PROJECT_ROOT_DIR, 'json_example', 'clan_detail.json')).read())
             r_session.set(REALTIME_DATA_CACHE_KEY, json.dumps(realtime), ex=DEFAULT_EXP_SECONDS)
 
         total_donations = sum([i['donations'] for i in realtime.get('memberList', [])])
         for item in realtime.get('memberList', []):
-            item['donation_ratio'] = -1 if total_donations == 0 else to_percentage(item['donations'] / total_donations)
+            item['donationRatio'] = -1 if total_donations == 0 else to_percentage(item['donations'] / total_donations)
 
         daily_statistic = [item.to_dict() for item in get_daily_statistic_by_datetime_tag(floor_2hours())]
         th_level_ratio = {}
-        total_players = len(daily_statistic)
+        total_players = realtime['members']
         for item in daily_statistic:
             if item['townHallLevel'] in th_level_ratio:
                 th_level_ratio[item['townHallLevel']]['count'] += 1

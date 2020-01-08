@@ -29,6 +29,7 @@ def fetch_player_daily_data():
             logger.info('***** fetching playerTag: {} datetimeTag: {} *****'.format(player_tag, time_now))
             session.add(DailyStatistic(**player_data))
         session.commit()
+        session.close()
     except Exception as e:
         logger.error(traceback.format_exc())
 
