@@ -3,6 +3,9 @@
 # File Name : tools.py
 import datetime
 
+default_datetime_format = '%Y-%m-%d %H:%M:%S'
+day_format = '%m-%d'
+time_format = '%m-%d %H:%M:%S'
 
 def is_even(num):
     if not isinstance(num, (float, int)):

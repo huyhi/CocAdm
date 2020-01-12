@@ -6,6 +6,9 @@ from Models.models import SeasonStatistic, Season, DailyStatistic
 
 
 # season
+from utils.tools import default_datetime_format
+
+
 def get_season_list():
     return session.query(Season).all()
 
@@ -20,9 +23,11 @@ def get_season_statistic_by_season_id(season_id):
 
 # daily
 def get_daily_statistic_by_player_tag_and_datetime_tag_list(player_tag, datetime_tag_list):
+    datetime_tag_list = [item.strftime(default_datetime_format) for item in datetime_tag_list]
     return session.query(DailyStatistic)\
         .filter_by(tag=player_tag)\
-        .filter(DailyStatistic.datetimeTag.in_(datetime_tag_list))\
+        .filter(DailyStatistic.datetimeTag.in_(datetime_tag_list)) \
+        .order_by(DailyStatistic.id.asc()) \
         .all()
 
 

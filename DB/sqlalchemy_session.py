@@ -27,4 +27,4 @@ engine = create_engine('mysql+mysqlconnector://{user}:{password}@{ip}:{port}/{da
 
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
-session = DBSession()
+session = DBSession(expire_on_commit=False)

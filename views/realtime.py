@@ -44,7 +44,6 @@ class Realtime(BaseView):
                     'count': 1
                 }
         for item in th_level_ratio:
-            print(item)
             th_level_ratio[item].update(**{
                 'ratio': to_percentage(th_level_ratio[item]['count'] / total_players)
             })
