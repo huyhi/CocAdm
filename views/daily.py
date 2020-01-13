@@ -2,6 +2,7 @@
 # Create by Annhuny On 2019-12-31 21:28
 # File Name : daily.py
 import copy
+import json
 from datetime import datetime
 
 from django.http import JsonResponse
@@ -9,6 +10,8 @@ from django.http import JsonResponse
 from DB.service import get_daily_statistic_by_player_tag_and_datetime_tag_list
 from Models.enums import ErrEnums, IntervalType
 from errors import CustomError
+from settings import PROJECT_ROOT_DIR
+from spider.clan import ClanSpider
 from utils.tools import is_even, hours, days, default_datetime_format, day_format, time_format
 from views.base import BaseView
 
@@ -72,7 +75,6 @@ class DailyStatistic(BaseView):
         idx = 0
         for datetime_tag_item in datetime_tag_list:
             if idx < len(raw_data) and raw_data[idx]['datetimeTag'] == datetime_tag_item:
-                print(datetime_tag_item)
                 tmp = raw_data[idx]
                 idx += 1
             else:
@@ -81,4 +83,10 @@ class DailyStatistic(BaseView):
             tmp['datetimeTag'] = tmp['datetimeTag'].strftime(res_dt_format)
             res.append(tmp)
 
+        return self.success(res)
+
+
+class PlayerInf(BaseView):
+    def get(self, request, player_tag):
+        res = ClanSpider.player_information(player_tag='#' + player_tag)
         return self.success(res)

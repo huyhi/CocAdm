@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from views.daily import DailyStatistic
+from views.daily import DailyStatistic, PlayerInf
 from views.realtime import Realtime, PlayerRealtimeInf
 from views.season import SeasonStatistics, Season
 from views.testfile import TestView
@@ -25,10 +25,11 @@ urlpatterns = [
     path('api/', include([
         path('admin/', admin.site.urls),
         path('test/', TestView.as_view()),
-        path(r'season/', Season.as_view()),
+        path('season/', Season.as_view()),
         path(r'season/<int:season_id>', SeasonStatistics.as_view()),
         path(r'daily/<str:player_tag>', DailyStatistic.as_view()),
-        path(r'realtime/', Realtime.as_view()),
+        path(r'player/<str:player_tag>', PlayerInf.as_view()),
+        path('realtime/', Realtime.as_view()),
         path(r'realtime/<str:player_tag>', PlayerRealtimeInf.as_view()),
     ]))
 ]
