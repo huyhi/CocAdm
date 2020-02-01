@@ -23,7 +23,7 @@ engine = create_engine('mysql+mysqlconnector://{user}:{password}@{ip}:{port}/{da
     'ip': db_conf.get('ip'),
     'port': db_conf.get('port'),
     'database': db_conf.get('database'),
-}))
+}), pool_size=5, max_overflow=10, pool_timeout=30, pool_pre_ping=True)
 
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
