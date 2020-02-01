@@ -15,7 +15,7 @@ from utils.tools import to_percentage, floor_2hours
 from views.base import BaseView
 
 REALTIME_DATA_CACHE_KEY = 'realtime_data_cache'
-DEFAULT_EXP_SECONDS = 60
+DEFAULT_EXP_SECONDS = 300
 
 
 class Realtime(BaseView):
